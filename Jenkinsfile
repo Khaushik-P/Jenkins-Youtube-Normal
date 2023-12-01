@@ -1,7 +1,7 @@
 pipeline{
     
     agent any 
-    ennvironment{
+    environment{
         SCANNER_HOME='sonar-scanner'
     }
     stages {
