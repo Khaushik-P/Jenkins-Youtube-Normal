@@ -14,7 +14,6 @@ pipeline{
         SCANNER_HOME=tool 'sonar-scanner'
     }
     stages {
-           stages{
         stage('Clean Workspace'){
             steps{
             cleanWorkspace()
@@ -67,7 +66,6 @@ pipeline{
                 dependencyCheckPublisher pattern: '**/dependency-check-report.xml'
             }
         }
-            }
-        }
+    }
+ }
         
-}
