@@ -6,9 +6,6 @@ pipeline{
         string(name:'DOCKER_HUB_USERNAME',defaultValue:'khaushik14',description:'Docker hub username')
         string(name:'IMAGE_NAME',defaultValue:'youtube',description:'Docker image name')
     }
-    tools{
-        jdk 'jdk17'
-    }
     environment{
         SCANNER_HOME=tool 'sonar-scanner'
     }
