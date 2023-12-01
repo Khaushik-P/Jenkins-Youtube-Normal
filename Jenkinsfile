@@ -10,40 +10,40 @@ pipeline{
                 
                 script{
                     
-                    git branch: 'main', url: 'https://github.com/Khaushik-P/sample.git'
+                    git branch: 'main', url: 'https://github.com/Khaushik-P/Youtube-app-Devops.git'
                 }
             }
         }
-        stage('UNIT testing'){
+        // stage('UNIT testing'){
             
-            steps{
+        //     steps{
                 
-                script{
+        //         script{
                     
-                    sh 'mvn test'
-                }
-            }
-        }
-        stage('Integration testing'){
+        //             sh 'mvn test'
+        //         }
+        //     }
+        // }
+        // stage('Integration testing'){
             
-            steps{
+        //     steps{
                 
-                script{
+        //         script{
                     
-                    sh 'mvn verify -DskipUnitTests'
-                }
-            }
-        }
-        stage('Maven build'){
+        //             sh 'mvn verify -DskipUnitTests'
+        //         }
+        //     }
+        // }
+        // stage('Maven build'){
             
-            steps{
+        //     steps{
                 
-                script{
+        //         script{
                     
-                    sh 'mvn clean install'
-                }
-            }
-        }
+        //             sh 'mvn clean install'
+        //         }
+        //     }
+        // }
         stage('Static code analysis'){
             
             steps{
@@ -52,7 +52,7 @@ pipeline{
                     
                     withSonarQubeEnv(credentialsId: 'sonar-api') {
                         
-                        sh 'mvn clean package sonar:sonar'
+                      sh ''' $SCANNER_HOME/bin/sonar-scanner -Dsonar.projectName=Youtube1 -Dsonar.projectKey=Youtube1 '''
                     }
                    }
                     
