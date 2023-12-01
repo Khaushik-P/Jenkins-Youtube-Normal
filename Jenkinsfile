@@ -1,10 +1,25 @@
 pipeline{
     
     agent any 
+     parameters{
+        choice(name:'action' , choices:'create\ndelete' ,description:'Select create or destroy.')
+        string(name:'DOCKER_HUB_USERNAME',defaultValue:'khaushik14',description:'Docker hub username')
+        string(name:'IMAGE_NAME',defaultValue:'youtube',description:'Docker image name')
+    }
+    tools{
+        jdk 'jdk17'
+        nodejs 'node16'
+    }
     environment{
         SCANNER_HOME=tool 'sonar-scanner'
     }
     stages {
+           stages{
+        stage('Clean Workspace'){
+            steps{
+            cleanWorkspace()
+            }
+        }
         
         stage('Git Checkout'){
             
@@ -16,38 +31,8 @@ pipeline{
                 }
             }
         }
-        // stage('UNIT testing'){
-            
-        //     steps{
-                
-        //         script{
-                    
-        //             sh 'mvn test'
-        //         }
-        //     }
-        // }
-        // stage('Integration testing'){
-            
-        //     steps{
-                
-        //         script{
-                    
-        //             sh 'mvn verify -DskipUnitTests'
-        //         }
-        //     }
-        // }
-        // stage('Maven build'){
-            
-        //     steps{
-                
-        //         script{
-                    
-        //             sh 'mvn clean install'
-        //         }
-        //     }
-        // }
         stage('Static code analysis'){
-            
+            when { expression { params.action == 'create'}}    
             steps{
                 
                 script{
@@ -61,7 +46,7 @@ pipeline{
                 }
             }
             stage('Quality Gate Status'){
-                
+                when { expression { params.action == 'create'}}    
                 steps{
                     
                     script{
@@ -71,7 +56,7 @@ pipeline{
                 }
             }
             stage('npm install'){
-                
+                when { expression { params.action == 'create'}}    
                 steps{
                     sh 'npm install'
                     }
