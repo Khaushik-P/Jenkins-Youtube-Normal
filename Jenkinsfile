@@ -59,13 +59,13 @@ pipeline{
                     sh 'npm install'
                     }
                 }
-        //     stage('OWASP FS SCAN'){
-        //         when { expression { params.action == 'create'}}
-        //      steps{
-        //          dependencyCheck additionalArguments: '--scan ./ --disableYarnAudit --disableNodeAudit', odcInstallation: 'DP-Check'
-        //         dependencyCheckPublisher pattern: '**/dependency-check-report.xml'
-        //     }
-        // }
+            stage('OWASP FS SCAN'){
+                when { expression { params.action == 'create'}}
+             steps{
+                 dependencyCheck additionalArguments: '--scan ./ --disableYarnAudit --disableNodeAudit', odcInstallation: 'DP-Check'
+                dependencyCheckPublisher pattern: '**/dependency-check-report.xml'
+            }
+        }
         stage('TRIVY FS SCAN') {
             when { expression { params.action == 'create'}}
             steps {
